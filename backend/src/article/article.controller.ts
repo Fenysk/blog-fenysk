@@ -1,8 +1,8 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { ArticleService } from './article.service';
 import { ArticleDto } from './dto';
-import { JwtGuard } from 'src/auth/guard';
 import { GetUser } from 'src/auth/decorator';
+import { JwtGuard } from 'src/auth/guard';
 
 @Controller('article') // POST /article
 export class ArticleController {
@@ -27,44 +27,64 @@ export class ArticleController {
     }
 
     @Get(':id')
-    getArticleById(@Param('id') id: string) {
+    getArticleById(
+        @Param('id') id: string
+    ) {
         console.log(`GET /article/${id}`);
         return this.articleService.getArticleById(parseInt(id));
     }
 
     @UseGuards(JwtGuard)
     @Post('create')
-    createArticle(@Body() data: ArticleDto, @GetUser('id') userId: number) {
+    createArticle(
+        @GetUser('role') role: string,
+        @GetUser('id') userId: number,
+        @Body() data: ArticleDto
+    ) {
         console.log('POST /article');
-        return this.articleService.createArticle(data, userId);
+        return this.articleService.createArticle(data, userId, role);
     }
 
     @UseGuards(JwtGuard)
     @Post('create/test')
-    createTestArticle(@GetUser('id') userId: number) {
+    createTestArticle(
+        @GetUser('role') role: string,
+        @GetUser('id') userId: number
+    ) {
         console.log('POST /article');
-        return this.articleService.createTestArticle(userId);
+        return this.articleService.createTestArticle(userId, role);
     }
 
     @UseGuards(JwtGuard)
     @Put(':id')
-    updateArticle(@Param('id') id: string, @Body() data: ArticleDto) {
+    updateArticle(
+        @GetUser('role') role: string,
+        @Body() data: ArticleDto,
+        @Param('id') id: string
+    ) {
         console.log(`PUT /article/${id}`);
-        return this.articleService.updateArticle(parseInt(id), data);
+        return this.articleService.updateArticle(parseInt(id), data, role);
     }
 
     @UseGuards(JwtGuard)
     @Patch(':id/published')
-    updateArticlePublished(@Param('id') id: string, @Query('published') published: string) {
+    updateArticlePublished(
+        @GetUser('role') role: string,
+        @Param('id') id: string,
+        @Query('published') published: string
+    ) {
         console.log(`PATCH /article/${id}/published`);
-        return this.articleService.updateArticlePublished(parseInt(id), published);
+        return this.articleService.updateArticlePublished(parseInt(id), published, role);
     }
 
-    @UseGuards(JwtGuard)    
+    @UseGuards(JwtGuard)
     @Delete(':id')
-    deleteArticle(@Param('id') id: string) {
+    deleteArticle(
+        @GetUser('role') role: string,
+        @Param('id') id: string
+    ) {
         console.log(`DELETE /article/${id}`);
-        return this.articleService.deleteArticle(parseInt(id));
+        return this.articleService.deleteArticle(parseInt(id), role);
     }
 
 }

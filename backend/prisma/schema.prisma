@@ -7,8 +7,15 @@ datasource db {
   url      = env("DATABASE_URL") // uses connection pooling
 }
 
+enum UserRole {
+  ADMIN
+  USER
+  REDACTOR
+}
+
 model User {
   id             Int      @id @default(autoincrement())
+  role           UserRole @default(USER)
   email          String   @unique
   username       String?  @unique
   hashedPassword String

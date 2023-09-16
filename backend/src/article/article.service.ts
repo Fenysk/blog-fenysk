@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { ArticleDto } from './dto';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
@@ -71,7 +71,16 @@ export class ArticleService {
         return article;
     }
 
-    async createArticle(data: ArticleDto, authorId: number) {
+    async createArticle(
+        data: ArticleDto,
+        authorId: number,
+        role: string
+    ) {
+
+        if ((role !== 'ADMIN') && (role !== 'REDACTOR')) {
+            throw new UnauthorizedException(`You are not authorized to perform this action`);
+        }
+        
         try {
             const article = await this.prisma.article.create({
                 data: {
@@ -87,7 +96,15 @@ export class ArticleService {
         }
     }
 
-    async createTestArticle(authorId: number) {
+    async createTestArticle(
+        authorId: number,
+        role: string
+    ) {
+
+        if ((role !== 'ADMIN') && (role !== 'REDACTOR')) {
+            throw new UnauthorizedException(`You are not authorized to perform this action`);
+        }
+
         try {
             const article = await this.prisma.article.create({
                 data: {
@@ -105,7 +122,16 @@ export class ArticleService {
         }
     }
 
-    async updateArticle(id: number, data: ArticleDto) {
+    async updateArticle(
+        id: number,
+        data: ArticleDto,
+        role: string
+    ) {
+
+        if ((role !== 'ADMIN') && (role !== 'REDACTOR')) {
+            throw new UnauthorizedException(`You are not authorized to perform this action`);
+        }
+
         try {
             const article = await this.prisma.article.update({
                 where: { id },
@@ -126,7 +152,16 @@ export class ArticleService {
         }
     }
 
-    async updateArticlePublished(id: number, published: string) {
+    async updateArticlePublished(
+        id: number,
+        published: string,
+        role: string
+    ) {
+
+        if ((role !== 'ADMIN') && (role !== 'REDACTOR')) {
+            throw new UnauthorizedException(`You are not authorized to perform this action`);
+        }
+
         try {
             const publishedBool = published === 'true' ? true : false;
 
@@ -149,7 +184,14 @@ export class ArticleService {
         }
     }
 
-    async deleteArticle(id: number) {
+    async deleteArticle(
+        id: number,
+        role: string
+    ) {
+
+        if ((role !== 'ADMIN') && (role !== 'REDACTOR')) {
+            throw new UnauthorizedException(`You are not authorized to perform this action`);
+        }
 
         try {
             await this.prisma.article.delete({
