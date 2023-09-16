@@ -1,5 +1,5 @@
 import * as argon from 'argon2';
-import { ConflictException, ForbiddenException, Injectable } from '@nestjs/common';
+import { ConflictException, ForbiddenException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
@@ -66,7 +66,7 @@ export class AuthService {
         );
 
         if (!pwMatches) {
-            throw new ForbiddenException('Password incorrect');
+            throw new UnauthorizedException('Password incorrect');
         }
 
         return this.signToken(user.id, user.email);
