@@ -17,6 +17,10 @@ export class ArticleService {
             throw new NotFoundException('No articles found :/');
         }
 
+        articles.map((article) => {
+            delete article.published;
+        });
+
         console.log('Articles found !');
         return articles;
     }
@@ -48,6 +52,10 @@ export class ArticleService {
             console.log('No articles found :/');
             throw new NotFoundException('No articles found :/');
         }
+
+        articles.map((article) => {
+            delete article.published;
+        });
 
         console.log('Articles found !');
         return articles;
