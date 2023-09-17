@@ -38,7 +38,7 @@ const handleSignup = async () => {
 </script>
 
 <template>
-    <main>
+    <main class="container px-4 py-8 mx-auto">
         <h2>SignView</h2>
 
         <form>

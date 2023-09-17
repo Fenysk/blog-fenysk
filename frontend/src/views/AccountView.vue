@@ -34,7 +34,7 @@ onMounted(getUser);
 </script>
 
 <template>
-    <main>
+    <main class="container px-4 py-8 mx-auto">
         <h2>AccountView</h2>
 
         <form>

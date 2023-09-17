@@ -2,13 +2,15 @@
 </script>
 
 <template>
-    <div class="flex justify-center py-8">
-        <nav>
+    <div class="py-8">
+        <nav class="container flex items-center justify-between mx-auto">
+            <router-link to="/" class="text-xl font-semibold">
+                Fenysk
+            </router-link>
             <ul class="flex gap-8">
-                <li><router-link to="/">Home</router-link></li>
                 <li><router-link to="/blog">Blog</router-link></li>
-                <li><router-link to="/about">About</router-link></li>
                 <li><router-link to="/signme">Mon compte</router-link></li>
+                <li><router-link to="/about">Qui est Fenysk ?</router-link></li>
             </ul>
         </nav>
     </div>

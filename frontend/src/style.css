@@ -43,3 +43,19 @@ button {
     background-color: #ccc;
     cursor: pointer;
 }
+
+h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}

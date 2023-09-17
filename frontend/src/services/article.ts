@@ -23,3 +23,14 @@ export async function getLatestArticles(): Promise<Article[]> {
         throw new Error('Unable to get articles :/');
     }
 }
+
+export async function getArticleById(id: number): Promise<Article> {
+    try {
+        const response = await axios.get(`${API_URL}/article/${id}`);
+        const article = response.data as Article;
+
+        return article;
+    } catch (error) {
+        throw new Error('Unable to get article :/');
+    }
+}

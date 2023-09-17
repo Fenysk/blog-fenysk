@@ -12,8 +12,8 @@ getArticles()
 </script>
 
 <template>
-    <main>
-        <h2 class="mb-16">BlogView</h2>
+    <main class="container px-4 py-8 mx-auto">
+        <h2>BlogView</h2>
 
         <ul class="flex flex-col gap-8">
             <li v-for="article in articles" :key="article.id">
