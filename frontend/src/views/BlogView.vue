@@ -13,11 +13,12 @@ getArticles()
 
 <template>
     <main>
-        <h2>BlogView</h2>
+        <h2 class="mb-16">BlogView</h2>
 
-        <ul>
+        <ul class="flex flex-col gap-8">
             <li v-for="article in articles" :key="article.id">
-                {{ article.title }}
+                <p>{{ article.title }}</p>
+                <p>{{ article.createdAt }}</p>
             </li>
         </ul>
     </main>
