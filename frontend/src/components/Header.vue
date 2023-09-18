@@ -2,7 +2,7 @@
 </script>
 
 <template>
-    <div class="py-8">
+    <div class="px-4 py-8 bg-gray-100">
         <nav class="container flex items-center justify-between mx-auto">
             <router-link to="/" class="text-xl font-semibold">
                 Fenysk

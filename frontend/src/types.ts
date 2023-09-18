@@ -5,6 +5,7 @@ export interface Article {
     createdAt: Date;
     updatedAt: Date;
     authorId: number;
+    author: object;
 }
 
 export interface User {

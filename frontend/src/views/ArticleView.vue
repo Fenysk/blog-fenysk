@@ -40,7 +40,7 @@ onMounted(() => {
             <p v-html="article?.content"></p>
         </article>
 
-        <p class="mt-8 text-xs">Parution le {{ article?.createdAt }} - modifié le {{ article?.updatedAt }}</p>
+        <p class="mt-8 text-xs">Parution le {{ article?.createdAt }} {{ article?.updatedAt !== article?.createdAt ? ' - Dernière mise à jour le ' + article?.updatedAt : '' }}.</p>
 
     </main>
 </template>

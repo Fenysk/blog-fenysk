@@ -10,6 +10,13 @@ export class ArticleService {
     async getArticles() {
         const articles = await this.prisma.article.findMany({
             where: { published: true, },
+            include: {
+                author: {
+                    select: {
+                        username: true,
+                    },
+                },
+            }
         });
 
         if (articles.length === 0) {
@@ -26,7 +33,15 @@ export class ArticleService {
     }
 
     async getAllArticles() {
-        const articles = await this.prisma.article.findMany();
+        const articles = await this.prisma.article.findMany({
+            include: {
+                author: {
+                    select: {
+                        username: true,
+                    },
+                },
+            }
+        });
 
         if (articles.length === 0) {
             console.log('No articles found :/');
@@ -46,6 +61,13 @@ export class ArticleService {
             where: {
                 published: true,
             },
+            include: {
+                author: {
+                    select: {
+                        username: true,
+                    },
+                },
+            }
         });
 
         if (articles.length === 0) {
@@ -68,6 +90,13 @@ export class ArticleService {
                 id,
                 published: true,
             },
+            include: {
+                author: {
+                    select: {
+                        username: true,
+                    },
+                },
+            }
         });
 
         if (!article) {
@@ -88,7 +117,7 @@ export class ArticleService {
         if ((role !== 'ADMIN') && (role !== 'REDACTOR')) {
             throw new UnauthorizedException(`You are not authorized to perform this action`);
         }
-        
+
         try {
             const article = await this.prisma.article.create({
                 data: {

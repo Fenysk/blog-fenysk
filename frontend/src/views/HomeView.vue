@@ -10,6 +10,7 @@ getLatestArticles()
     .then((response) => {
         articles.value = response;
         articles.value.forEach((article) => {
+            article.createdAt = formatDate(article.createdAt);
             article.updatedAt = formatDate(article.updatedAt);
         });
     })
@@ -19,7 +20,7 @@ getLatestArticles()
 
 <template>
     <main class="container px-4 py-8 mx-auto">
-        <h1>Le Monde de Fenysk : Développeur et Passionné de Technologie</h1>
+        <h1>Le Monde de Fenysk : Développeur web et Passionné de Technologie</h1>
 
         <aside id="Last_Articles">
             <h2>Derniers articles</h2>
@@ -28,7 +29,10 @@ getLatestArticles()
                     <article class="h-full p-4 border border-gray-200 rounded-md">
                         <a :href="`/blog/${article.id}`" class="flex flex-col justify-between h-full">
                             <p>{{ article.title }}</p>
-                            <p>{{ article.updatedAt }}</p>
+                            <div class="flex">
+                                <p>Le {{ article.createdAt }} par {{ article.author.username }} {{ article.updatedAt !== article.createdAt ? `(modifié le ${article.updatedAt})` : "" }}
+                                </p>
+                            </div>
                         </a>
                     </article>
                 </li>
