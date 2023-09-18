@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { getMe, deleteMe } from "../services/user";
+import router from "../router";
 
 const user = ref({});
 const token = localStorage.getItem("access_token");
@@ -37,8 +38,13 @@ onMounted(getUser);
     <main class="container px-4 py-8 mx-auto">
         <h2>AccountView</h2>
 
-        <form>
+        <div id="options">
+            <button>
+                <router-link to="/blog/new">Create new article</router-link>
+            </button>
+        </div>
 
+        <form>
             <label>Username</label>
             <input type="text" v-model="user.username" disabled>
 

@@ -7,5 +7,6 @@ export class ArticleDto {
     @IsNotEmpty()
     content: string;
     
+    @IsNotEmpty()
     published: boolean;
 }

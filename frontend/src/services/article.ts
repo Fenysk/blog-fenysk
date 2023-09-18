@@ -34,3 +34,17 @@ export async function getArticleById(id: number): Promise<Article> {
         throw new Error('Unable to get article :/');
     }
 }
+
+export async function createArticle(article: object, token: string): Promise<Article> {
+    try {
+        const response = await axios.post(`${API_URL}/article/create`, article, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        const newArticle = response.data as Article;
+        return newArticle
+    } catch (error) {
+        throw new Error('Unable to create article :/');
+    }
+}

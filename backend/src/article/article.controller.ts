@@ -3,6 +3,7 @@ import { ArticleService } from './article.service';
 import { ArticleDto } from './dto';
 import { GetUser } from 'src/auth/decorator';
 import { JwtGuard } from 'src/auth/guard';
+import { User } from '@prisma/client';
 
 @Controller('article') // POST /article
 export class ArticleController {
@@ -37,12 +38,11 @@ export class ArticleController {
     @UseGuards(JwtGuard)
     @Post('create')
     createArticle(
-        @GetUser('role') role: string,
-        @GetUser('id') userId: number,
+        @GetUser() user: User,
         @Body() data: ArticleDto
     ) {
         console.log('POST /article');
-        return this.articleService.createArticle(data, userId, role);
+        return this.articleService.createArticle(data, user.id, user.role);
     }
 
     @UseGuards(JwtGuard)

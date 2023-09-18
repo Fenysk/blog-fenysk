@@ -13,7 +13,7 @@ async function fetchArticle() {
     articleId.value = parseInt(route.params.id as string);
 
     if (articleId.value) {
-        getArticleById(articleId.value)
+        await getArticleById(articleId.value)
             .then((fetchedArticle) => {
 
                 fetchedArticle.createdAt = formatDate(fetchedArticle.createdAt);
