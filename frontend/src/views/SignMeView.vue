@@ -15,7 +15,6 @@ const handleLogin = async () => {
     await login(email.value, password.value)
         .then((access_token) => {
             localStorage.setItem("access_token", access_token);
-            console.log(access_token);
             nextTick(() => {
                 router.push({ name: "Account" });
             });
@@ -27,7 +26,6 @@ const handleSignup = async () => {
     await register(username.value, email.value, password.value)
         .then((access_token) => {
             localStorage.setItem("access_token", access_token);
-            console.log(access_token);
             nextTick(() => {
                 router.push({ name: "Account" });
             });

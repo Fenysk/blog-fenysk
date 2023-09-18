@@ -35,6 +35,21 @@ export async function getArticleById(id: number): Promise<Article> {
     }
 }
 
+export async function getMyArticles(token: string): Promise<Article[]> {
+    try {
+        const response = await axios.get(`${API_URL}/article/mine`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        const articles = response.data as Article[];
+
+        return articles;
+    } catch (error) {
+        throw new Error('Unable to get articles :/');
+    }
+}
+
 export async function createArticle(article: object, token: string): Promise<Article> {
     try {
         const response = await axios.post(`${API_URL}/article/create`, article, {
@@ -46,5 +61,19 @@ export async function createArticle(article: object, token: string): Promise<Art
         return newArticle
     } catch (error) {
         throw new Error('Unable to create article :/');
+    }
+}
+
+export async function updateArticle(article: object, token: string): Promise<Article> {
+    try {
+        const response = await axios.put(`${API_URL}/article/${article.id}`, article, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        const newArticle = response.data as Article;
+        return newArticle
+    } catch (error) {
+        throw new Error('Unable to update article :/');
     }
 }

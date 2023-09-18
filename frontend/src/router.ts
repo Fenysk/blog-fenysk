@@ -6,6 +6,7 @@ import ArticleView from './views/ArticleView.vue'
 import SignMeView from './views/SignMeView.vue'
 import AccountView from './views/AccountView.vue'
 import NewArticleView from './views/Admin/NewArticleView.vue'
+import EditArticleView from './views/Admin/EditArticleView.vue'
 
 function checkAccessToken(to: any, from: any, next: any) {
     const access_token = localStorage.getItem('access_token')
@@ -38,15 +39,21 @@ export default createRouter({
             component: BlogView
         },
         {
+            name: 'Article',
+            path: '/blog/:id',
+            component: ArticleView
+        },
+        {
             name: 'NewArticle',
             path: '/blog/new',
             component: NewArticleView,
             beforeEnter: checkAccessToken
-        },
+        },        
         {
-            name: 'Article',
-            path: '/blog/:id',
-            component: ArticleView
+            name: 'EditArticle',
+            path: '/blog/:id/edit',
+            component: EditArticleView,
+            beforeEnter: checkAccessToken
         },
         {
             name: 'SignMe',

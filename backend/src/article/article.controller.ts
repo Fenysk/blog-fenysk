@@ -27,12 +27,29 @@ export class ArticleController {
         return this.articleService.getLatestArticles();
     }
 
+    @UseGuards(JwtGuard)
+    @Get('mine')
+    getMyArticles(
+        @GetUser() user: User
+    ) {
+        console.log('GET /article/mine');
+        return this.articleService.getMyArticles(user.id);
+    }
+
     @Get(':id')
     getArticleById(
         @Param('id') id: string
     ) {
         console.log(`GET /article/${id}`);
         return this.articleService.getArticleById(parseInt(id));
+    }
+
+    @Get('author/:id')
+    getArticlesByAuthorId(
+        @Param('id') id: string
+    ) {
+        console.log(`GET /article/author/${id}`);
+        return this.articleService.getArticlesByAuthorId(parseInt(id));
     }
 
     @UseGuards(JwtGuard)

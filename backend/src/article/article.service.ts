@@ -108,6 +108,55 @@ export class ArticleService {
         return article;
     }
 
+    async getArticlesByAuthorId(authorId: number) {
+
+        const articles = await this.prisma.article.findMany({
+            where: {
+                authorId,
+                published: true,
+            },
+            include: {
+                author: {
+                    select: {
+                        username: true,
+                    },
+                },
+            }
+        });
+
+        if (articles.length === 0) {
+            console.log(`No articles found for author with id ${authorId} :/`);
+            throw new NotFoundException(`No articles found for author with id ${authorId} :/`);
+        }
+
+        console.log(`Articles found for author with id ${authorId} !`);
+        return articles;
+    }
+
+    async getMyArticles(userId: number) {
+
+        const articles = await this.prisma.article.findMany({
+            where: {
+                authorId: userId,
+            },
+            include: {
+                author: {
+                    select: {
+                        username: true,
+                    },
+                },
+            }
+        });
+
+        if (articles.length === 0) {
+            console.log(`No articles found for author with id ${userId} :/`);
+            throw new NotFoundException(`No articles found for author with id ${userId} :/`);
+        }
+
+        console.log(`Articles found for author with id ${userId} !`);
+        return articles;
+    }
+
     async createArticle(
         data: ArticleDto,
         authorId: number,

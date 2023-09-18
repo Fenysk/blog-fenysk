@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import { getMe, deleteMe } from "../services/user";
-import router from "../router";
+import { getMyArticles } from "../services/article";
+
+// User
 
 const user = ref({});
 const token = localStorage.getItem("access_token");
@@ -12,7 +14,6 @@ const getUser = async () => {
             user.value = userData;
             user.value.createdAt = new Date(userData.createdAt).toLocaleString("fr-FR");
             user.value.updatedAt = new Date(userData.updatedAt).toLocaleString("fr-FR");
-            console.log(user);
         })
         .catch((error) => { console.log(error); });
 };
@@ -31,18 +32,45 @@ const handleLogout = () => {
     location.reload();
 };
 
-onMounted(getUser);
+
+
+// Articles
+const articles = ref([]);
+
+const getUserArticles = async () => {
+    await getMyArticles(token)
+        .then((fetchedArticles) => {
+            articles.value = fetchedArticles;
+        })
+        .catch((error) => { console.log(error); });
+};
+
+onMounted(() => {
+    getUser();
+    getUserArticles();
+});
 </script>
 
 <template>
     <main class="container px-4 py-8 mx-auto">
         <h2>AccountView</h2>
 
-        <div id="options">
+        <section class="mb-8" id="articles">
+            <h3>My articles</h3>
             <button>
                 <router-link to="/blog/new">Create new article</router-link>
             </button>
-        </div>
+            <ul class="list-disc" v-if="articles.length > 0">
+                <li v-for="article in articles" :key="article.id">
+                    <article class="flex gap-4">
+                        <router-link class="text-blue-500 underline" :to="{ name: 'Article', params: { id: article.id } }">
+                            {{ article.title }}
+                        </router-link>
+                        <a :href="`/blog/${article.id}/edit`">Edit</a>
+                    </article>
+                </li>
+            </ul>
+        </section>
 
         <form>
             <label>Username</label>
