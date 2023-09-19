@@ -57,7 +57,7 @@ onMounted(() => {
 
         <section class="mb-8" id="articles">
             <h3>My articles</h3>
-            <button>
+            <button v-if="user && (user.role === 'ADMIN') || (user.role === 'REDACTOR')">
                 <router-link to="/blog/new">Create new article</router-link>
             </button>
             <ul class="list-disc" v-if="articles.length > 0">

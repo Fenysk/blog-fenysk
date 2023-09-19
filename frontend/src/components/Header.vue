@@ -8,9 +8,9 @@
                 Fenysk
             </router-link>
             <ul class="flex gap-8">
-                <li><router-link to="/blog">Blog</router-link></li>
-                <li><router-link to="/signme">Mon compte</router-link></li>
-                <li><router-link to="/about">Qui est Fenysk ?</router-link></li>
+                <li><router-link :to="{ name: 'Blog' }">Blog</router-link></li>
+                <li><router-link :to="{ name: 'Account' }">Mon compte</router-link></li>
+                <li><router-link :to="{ name: 'About' }">Qui est Fenysk ?</router-link></li>
             </ul>
         </nav>
     </div>

@@ -8,7 +8,7 @@ const route = useRoute();
 watch(
   () => route.path,
   () => {
-    document.title = route.meta.title;
+    document.title = route.meta.title as string;
   }
 );
 
