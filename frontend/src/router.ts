@@ -26,45 +26,69 @@ const routes = [
     {
         name: 'Home',
         path: '/',
-        component: HomeView
+        component: HomeView,
+        meta: {
+            title: 'Fenysk - Développeur web et passionné de nouvelles technologies !'
+        }
     },
     {
         name: 'About',
         path: '/about',
-        component: AboutView
+        component: AboutView,
+        meta: {
+            title: 'Qui est Fenysk ?'
+        }
     },
     {
         name: 'Blog',
         path: '/blog',
-        component: BlogView
+        component: BlogView,
+        meta: {
+            title: 'Articles - Fenysk.fr'
+        }
     },
     {
         name: 'Article',
         path: '/blog/:id',
-        component: ArticleView
+        component: ArticleView,
+        meta: {
+            title: 'Fenysk.fr'
+        }
     },
     {
+        beforeEnter: checkAccessToken,
         name: 'NewArticle',
         path: '/blog/new',
         component: NewArticleView,
-        beforeEnter: checkAccessToken
+        meta: {
+            title: 'Nouvel article - Fenysk.fr'
+        }
     },
     {
+        beforeEnter: checkAccessToken,
         name: 'EditArticle',
         path: '/blog/:id/edit',
         component: EditArticleView,
-        beforeEnter: checkAccessToken
+        meta: {
+            title: 'Modifier un article - Fenysk.fr'
+        }
     },
     {
         name: 'SignMe',
         path: '/signme',
-        component: SignMeView
+        component: SignMeView,
+        meta: {
+            title: 'Connexion - Fenysk.fr'
+        }
     },
     {
+        beforeEnter: checkAccessToken,
         name: 'Account',
         path: '/account',
         component: AccountView,
-        beforeEnter: checkAccessToken
+        meta: {
+            title: 'Mon compte - Fenysk.fr'
+        }
     },
     {
         name: 'NotFound',
