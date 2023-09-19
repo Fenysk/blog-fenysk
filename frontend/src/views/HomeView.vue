@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { getLatestArticles } from "../services/article";
-import { Article } from "../types";
 import { formatDate } from "../utils/date";
 
-const articles = ref<Article[]>([]);
+const articles = ref<any>([]);
 
 getLatestArticles()
     .then((response) => {
         articles.value = response;
-        articles.value.forEach((article) => {
+        articles.value.forEach((article: any) => {
             article.createdAt = formatDate(article.createdAt);
             article.updatedAt = formatDate(article.updatedAt);
         });

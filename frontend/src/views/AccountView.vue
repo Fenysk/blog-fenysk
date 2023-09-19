@@ -5,11 +5,11 @@ import { getMyArticles } from "../services/article";
 
 // User
 
-const user = ref({});
-const token = localStorage.getItem("access_token");
+const user = ref<any>({});
+const access_token: any = localStorage.getItem("access_token");
 
 const getUser = async () => {
-    await getMe(token)
+    await getMe(access_token)
         .then((userData) => {
             user.value = userData;
             user.value.createdAt = new Date(userData.createdAt).toLocaleString("fr-FR");
@@ -19,7 +19,7 @@ const getUser = async () => {
 };
 
 const handleDelete = async () => {
-    await deleteMe(token)
+    await deleteMe(access_token)
         .then(() => {
             localStorage.removeItem("access_token");
             location.reload();
@@ -35,10 +35,10 @@ const handleLogout = () => {
 
 
 // Articles
-const articles = ref([]);
+const articles = ref<any>([]);
 
 const getUserArticles = async () => {
-    await getMyArticles(token)
+    await getMyArticles(access_token)
         .then((fetchedArticles) => {
             articles.value = fetchedArticles;
         })

@@ -50,7 +50,7 @@ export async function getMyArticles(token: string): Promise<Article[]> {
     }
 }
 
-export async function createArticle(article: object, token: string): Promise<Article> {
+export async function createArticle(article: any, token: string): Promise<Article> {
     try {
         const response = await axios.post(`${API_URL}/article/create`, article, {
             headers: {
@@ -64,7 +64,7 @@ export async function createArticle(article: object, token: string): Promise<Art
     }
 }
 
-export async function updateArticle(article: object, token: string): Promise<Article> {
+export async function updateArticle(article: any, token: string): Promise<Article> {
     try {
         const response = await axios.put(`${API_URL}/article/${article.id}`, article, {
             headers: {

@@ -2,19 +2,18 @@
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import { getArticleById } from "../services/article";
-import { Article } from "../types";
 import { formatDate } from "../utils/date";
 
 const route = useRoute();
 const articleId = ref<number | undefined>();
-const article = ref<Article | undefined>();
+const article = ref<any>();
 
 async function fetchArticle() {
     articleId.value = parseInt(route.params.id as string);
 
     if (articleId.value) {
         await getArticleById(articleId.value)
-            .then((fetchedArticle) => {
+            .then((fetchedArticle: any) => {
 
                 fetchedArticle.createdAt = formatDate(fetchedArticle.createdAt);
                 fetchedArticle.updatedAt = formatDate(fetchedArticle.updatedAt);

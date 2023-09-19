@@ -1,4 +1,4 @@
-export function formatDate(date: Date | undefined) {
+export function formatDate(date: any) {
     if (date) {
         return new Date(date).toLocaleDateString('fr-FR', {
             year: 'numeric',

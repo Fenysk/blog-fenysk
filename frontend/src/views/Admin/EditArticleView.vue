@@ -7,7 +7,7 @@ import { updateArticle } from "../../services/article";
 
 const route = useRoute();
 const articleId = ref<number | null>(null);
-const article = ref({})
+const article = ref<any>({})
 
 const router = useRouter();
 
@@ -16,7 +16,7 @@ async function fetchArticle() {
 
     if (articleId.value) {
         await getArticleById(articleId.value)
-            .then((fetchedArticle) => {
+            .then((fetchedArticle: any) => {
 
                 fetchedArticle.createdAt = formatDate(fetchedArticle.createdAt);
                 fetchedArticle.updatedAt = formatDate(fetchedArticle.updatedAt);
@@ -31,14 +31,16 @@ async function fetchArticle() {
 
 async function handleSubmit() {
     const access_token = localStorage.getItem("access_token");
-    
-    await updateArticle(article.value, access_token)
-        .then((updatedArticle) => {
-            router.push({ name: "Article", params: { id: updatedArticle.id } });
-        })
-        .catch((error) => {
-            console.error(error);
-        });
+
+    if (access_token) {
+        await updateArticle(article.value, access_token)
+            .then((updatedArticle) => {
+                router.push({ name: "Article", params: { id: updatedArticle.id } });
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
 }
 
 onMounted(() => {

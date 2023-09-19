@@ -4,7 +4,7 @@ import { createArticle } from "../../services/article";
 import { useRouter } from "vue-router";
 const router = useRouter()
 
-const article = ref<any | undefined>({
+const article = ref<any>({
     title: "Mon titre d'article",
     content: "Mon contenu d'article",
     published: true,
@@ -13,15 +13,17 @@ const article = ref<any | undefined>({
 async function handleSubmit() {
     const access_token = localStorage.getItem("access_token")
 
-    await createArticle(article.value, access_token)
-        .then((article) => {
-            nextTick(() => {
-                router.push({ name: "Article", params: { id: article.id } })
+    if (access_token) {
+        await createArticle(article.value, access_token)
+            .then((article) => {
+                nextTick(() => {
+                    router.push({ name: "Article", params: { id: article.id } })
+                })
             })
-        })
-        .catch((error) => {
-            console.log(error)
-        })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
 }
 
 </script>
