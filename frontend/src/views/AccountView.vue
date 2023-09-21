@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import { getMe, deleteMe } from "../services/user";
+import { getMe, deleteMe, updateMe } from "../services/user";
 import { getMyArticles } from "../services/article";
 
 // User
@@ -49,6 +49,15 @@ onMounted(() => {
     getUser();
     getUserArticles();
 });
+
+const updateField = async (field: string, value: string) => {
+    await updateMe(access_token, field, value)
+        .then((user) => {
+            getUser();
+            console.log("User updated : ", user);
+        })
+        .catch((error) => { console.log(error); });
+};
 </script>
 
 <template>
@@ -74,19 +83,24 @@ onMounted(() => {
 
         <form>
             <label>Username</label>
-            <input type="text" v-model="user.username" disabled>
+            <input type="text" v-model="user.username">
+            <button @click.prevent="updateField('username', user.username)">Update</button>
 
             <label>Email</label>
-            <input type="text" v-model="user.email" disabled>
+            <input type="text" v-model="user.email">
+            <button @click.prevent="updateField('email', user.email)">Update</button>
 
             <label>Role</label>
-            <input type="text" v-model="user.role" disabled>
+            <input type="text" v-model="user.role">
+            <button @click.prevent="updateField('role', user.role)">Update</button>
 
             <label>Created at</label>
             <input type="text" v-model="user.createdAt" disabled>
+            
 
             <label>Updated at</label>
             <input type="text" v-model="user.updatedAt" disabled>
+            
 
             <button @click.prevent="handleDelete">Delete</button>
             <button @click.prevent="handleLogout">Logout</button>

@@ -31,3 +31,21 @@ export async function deleteMe(token: string) {
         throw new Error('Unable to delete user :/');
     }
 }
+
+export async function updateMe(token: string, field: string, value: string) {
+    try {
+
+        const response = await axios.patch(`${API_URL}/users/me`, {
+            [field]: value,
+        }, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        const user = response.data;
+        return user;
+    } catch (error) {
+        throw new Error('Unable to update user :/');
+    }
+}
